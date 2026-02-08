@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dir /a \"C:\\\\workspace\\\\seok-dev\")"
+      "Bash(dir /a \"C:\\\\workspace\\\\seok-dev\")",
+      "Bash(npx tsc:*)",
+      "Bash(node -e:*)",
+      "Bash(npx next build:*)",
+      "Bash(pkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx kill-port:*)",
+      "Bash(curl:*)"
     ]
   }
 }
