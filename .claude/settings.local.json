@@ -11,7 +11,10 @@
       "Bash(taskkill:*)",
       "Bash(npm uninstall:*)",
       "Bash(npx kill-port:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(gh issue view:*)",
+      "Bash(dir:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }
