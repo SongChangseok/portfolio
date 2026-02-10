@@ -14,7 +14,10 @@
       "Bash(curl:*)",
       "Bash(gh issue view:*)",
       "Bash(dir:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm install:*)"
     ]
   }
 }
