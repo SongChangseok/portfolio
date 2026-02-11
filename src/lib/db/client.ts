@@ -18,6 +18,10 @@ class PortfolioDB extends Dexie {
       tags: 'id, &name, createdAt',
       stock_tags: '[stockId+tagId], stockId, tagId',
     });
+
+    this.version(2).stores({
+      accounts: 'id, name, createdAt',
+    });
   }
 }
 

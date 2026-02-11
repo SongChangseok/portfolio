@@ -5,11 +5,7 @@ export const accountSchema = z.object({
     .string()
     .min(1, '계좌명을 입력해주세요.')
     .max(50, '계좌명은 50자 이하로 입력해주세요.'),
-  accountType: z
-    .string()
-    .min(1, '계좌 유형을 선택해주세요.'),
-  description: z.string().nullable().default(null),
-  color: z.string().nullable().default(null),
+  description: z.string().nullable(),
 });
 
 export type AccountFormValues = z.infer<typeof accountSchema>;

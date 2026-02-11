@@ -69,10 +69,8 @@
 ```typescript
 {
   id: string (uuid, primary key)
-  name: string (계좌명 - 예: "NH투자증권 IRA")
-  accountType: string (계좌 유형 - 예: "IRA", "일반", "연금저축")
+  name: string (계좌명 - 예: "NH투자증권")
   description: string | null (설명)
-  color: string | null (UI 색상 - 예: "#3B82F6")
   createdAt: number (timestamp)
   updatedAt: number (timestamp)
 }
@@ -244,7 +242,7 @@ AccountsPage
       ├── AddAccountButton → AccountForm (Dialog)
       └── AccountList
           └── AccountCard (×N)
-              ├── 계좌명, 유형
+              ├── 계좌명
               ├── 총 평가금액
               ├── 보유 종목 수
               └── 미니 파이 차트
@@ -425,10 +423,10 @@ useDeleteAccount()      // 계좌 삭제
 
 **Step 16: 계좌 컴포넌트**
 - `account-form.tsx`: 계좌 생성/수정 폼 (Dialog)
-  - 필드: 계좌명, 계좌유형, 설명, 색상 선택
+  - 필드: 계좌명, 설명
   - React Hook Form + Zod 검증
 - `account-card.tsx`: 계좌 카드
-  - 계좌명, 유형, 총 평가금액, 보유 종목 수
+  - 계좌명, 총 평가금액, 보유 종목 수
   - 클릭 시 상세 페이지로 이동
 - `account-list.tsx`: 계좌 카드 그리드
 
@@ -705,7 +703,7 @@ Allow: /
 
 **계좌:**
 - [ ] 계좌 생성
-- [ ] 계좌 수정 (이름, 색상)
+- [ ] 계좌 수정 (이름, 설명)
 - [ ] 계좌 삭제 (보유종목도 함께 삭제되는지)
 - [ ] 계좌 목록 표시
 

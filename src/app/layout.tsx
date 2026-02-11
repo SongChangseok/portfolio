@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <QueryProvider>
           <Header />
-          <main className="container px-4 py-6">{children}</main>
+          <main className="container mx-auto px-4 py-6">{children}</main>
         </QueryProvider>
       </body>
     </html>

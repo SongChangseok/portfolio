@@ -3,9 +3,7 @@
 export interface Account {
   id: string;
   name: string;
-  accountType: string;
   description: string | null;
-  color: string | null;
   createdAt: number;
   updatedAt: number;
 }
