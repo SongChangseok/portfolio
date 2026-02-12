@@ -10,10 +10,7 @@ export interface Account {
 
 export interface Stock {
   id: string;
-  symbol: string;
   name: string;
-  sector: string | null;
-  industry: string | null;
   notes: string | null;
   createdAt: number;
   updatedAt: number;

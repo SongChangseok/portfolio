@@ -22,6 +22,10 @@ class PortfolioDB extends Dexie {
     this.version(2).stores({
       accounts: 'id, name, createdAt',
     });
+
+    this.version(3).stores({
+      stocks: 'id, name, createdAt',
+    });
   }
 }
 

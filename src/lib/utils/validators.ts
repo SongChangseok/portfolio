@@ -11,18 +11,11 @@ export const accountSchema = z.object({
 export type AccountFormValues = z.infer<typeof accountSchema>;
 
 export const stockSchema = z.object({
-  symbol: z
-    .string()
-    .min(1, '티커를 입력해주세요.')
-    .max(20, '티커는 20자 이하로 입력해주세요.')
-    .transform((val) => val.toUpperCase()),
   name: z
     .string()
     .min(1, '종목명을 입력해주세요.')
     .max(100, '종목명은 100자 이하로 입력해주세요.'),
-  sector: z.string().nullable().default(null),
-  industry: z.string().nullable().default(null),
-  notes: z.string().nullable().default(null),
+  notes: z.string().nullable(),
 });
 
 export type StockFormValues = z.infer<typeof stockSchema>;

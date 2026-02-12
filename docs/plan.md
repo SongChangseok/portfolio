@@ -82,17 +82,15 @@
 ```typescript
 {
   id: string (uuid, primary key)
-  symbol: string (티커 - 예: "AAPL", "005930")
-  name: string (종목명 - 예: "Apple Inc.", "삼성전자")
-  sector: string | null (섹터 - 예: "Technology")
-  industry: string | null (산업 - 예: "Consumer Electronics")
+  name: string (종목명 - 예: "삼성전자", "Apple Inc.")
   notes: string | null (메모)
   createdAt: number (timestamp)
   updatedAt: number (timestamp)
 }
 
-인덱스: id (primary), symbol (unique), name
+인덱스: id (primary), name
 ```
+> **참고**: 종목 분류는 태그(tags) 시스템으로 관리합니다.
 
 #### 3. `holdings` (보유 종목)
 ```typescript
@@ -176,7 +174,7 @@ C:\workspace\seok-dev\
 │   │   ├── charts/                   # 차트 컴포넌트
 │   │   │   ├── portfolio-pie-chart.tsx
 │   │   │   ├── account-allocation-chart.tsx
-│   │   │   └── sector-breakdown-chart.tsx
+│   │   │   └── tag-breakdown-chart.tsx
 │   │   ├── dashboard/                # 대시보드 컴포넌트
 │   │   │   ├── portfolio-overview.tsx
 │   │   │   ├── top-holdings.tsx
@@ -268,13 +266,13 @@ AccountDetailPage
 ```
 StocksPage
   └── StocksClient
-      ├── SearchBar (티커/종목명 검색)
+      ├── SearchBar (종목명 검색)
       ├── TagFilter (태그별 필터)
       ├── AddStockButton → StockForm
       └── StockList
           └── StockCard (×N)
-              ├── 티커, 종목명
-              ├── 섹터, 태그들
+              ├── 종목명
+              ├── 태그들
               ├── 총 보유 수량 (모든 계좌 합계)
               └── 총 평가금액
 ```
@@ -466,10 +464,9 @@ useRemoveTagFromStock() // 주식에서 태그 제거
 
 **Step 20: 주식 컴포넌트**
 - `stock-form.tsx`: 주식 생성/수정 폼
-  - 필드: 티커, 종목명, 섹터, 산업, 메모
-  - 태그 입력 (자동완성 + 신규 생성)
+  - 필드: 종목명, 메모
 - `stock-card.tsx`: 주식 카드
-  - 티커, 종목명, 섹터
+  - 종목명
   - 태그 배지들
   - 총 보유 수량 및 평가금액 (모든 계좌 합산)
 - `stock-list.tsx`: 주식 카드 그리드
@@ -535,8 +532,8 @@ useDeleteHolding()               // 보유종목 삭제
   - PieChart
   - 색상 구분
 
-- `sector-breakdown-chart.tsx`: 섹터별 비중
-  - PieChart (섹터 데이터가 있는 경우만)
+- `tag-breakdown-chart.tsx`: 태그별 비중
+  - PieChart (태그 데이터가 있는 경우만)
 
 - `top-holdings-bar-chart.tsx`: Top 10 보유 종목
   - BarChart
@@ -547,7 +544,7 @@ useDeleteHolding()               // 보유종목 삭제
 ```typescript
 transformPortfolioData(accounts, holdings)
 transformAccountData(holdings)
-transformSectorData(holdings, stocks)
+transformTagData(holdings, stocks, tags)
 transformTopHoldings(holdings, stocks)
 ```
 
@@ -708,9 +705,9 @@ Allow: /
 - [ ] 계좌 목록 표시
 
 **주식:**
-- [ ] 주식 생성 (티커 대문자 변환 확인)
+- [ ] 주식 생성
 - [ ] 태그 추가/제거
-- [ ] 주식 검색 (티커, 종목명)
+- [ ] 주식 검색 (종목명)
 - [ ] 태그 필터링
 - [ ] 주식 삭제 (보유종목도 함께 삭제되는지)
 

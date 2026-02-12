@@ -62,11 +62,6 @@ export async function getStockById(id: string): Promise<Stock | undefined> {
   return await db.stocks.get(id);
 }
 
-export async function getStockBySymbol(symbol: string): Promise<Stock | undefined> {
-  const db = getDB();
-  return await db.stocks.where('symbol').equals(symbol.toUpperCase()).first();
-}
-
 export async function createStock(
   data: Omit<Stock, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<Stock> {
@@ -74,7 +69,6 @@ export async function createStock(
   const stock: Stock = {
     id: generateId(),
     ...data,
-    symbol: data.symbol.toUpperCase(), // Normalize symbol to uppercase
     createdAt: now(),
     updatedAt: now(),
   };
@@ -87,12 +81,8 @@ export async function updateStock(
   data: Partial<Omit<Stock, 'id' | 'createdAt' | 'updatedAt'>>
 ): Promise<void> {
   const db = getDB();
-  const updates = { ...data };
-  if (updates.symbol) {
-    updates.symbol = updates.symbol.toUpperCase();
-  }
   await db.stocks.update(id, {
-    ...updates,
+    ...data,
     updatedAt: now(),
   });
 }

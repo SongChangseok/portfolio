@@ -17,7 +17,9 @@
       "Bash(npm run build:*)",
       "Bash(ls:*)",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(gh issue edit 4 --body \"$\\(cat <<''EOF''\n## 개요\n계좌 CRUD 기능 구현\n\n## 예상 소요 시간\n1일\n\n## 작업 내용\n\n### Step 15: React Query 훅 - Accounts\n`src/lib/hooks/use-accounts.ts`:\n```typescript\nuseAccounts\\(\\)           // 모든 계좌 조회\nuseAccount\\(id\\)          // 특정 계좌 조회\nuseCreateAccount\\(\\)      // 계좌 생성\nuseUpdateAccount\\(\\)      // 계좌 수정\nuseDeleteAccount\\(\\)      // 계좌 삭제\n```\n\n### Step 16: 계좌 컴포넌트\n- `account-form.tsx`: 계좌 생성/수정 폼 \\(Dialog\\)\n  - 필드: 계좌명, 설명\n  - React Hook Form + Zod 검증\n- `account-card.tsx`: 계좌 카드\n  - 계좌명, 총 평가금액, 보유 종목 수\n  - 클릭 시 상세 페이지로 이동\n- `account-list.tsx`: 계좌 카드 그리드\n\n### Step 17: 계좌 페이지\n`app/accounts/page.tsx`:\n- 계좌 목록 표시\n- \"계좌 추가\" 버튼\n- 빈 상태 처리\n\n### Step 18: 계좌 상세 페이지\n`app/accounts/[id]/page.tsx`:\n- 계좌 정보 헤더 \\(이름, 수정/삭제 버튼\\)\n- 계좌 통계 \\(총 평가금액, 총 손익, 수익률\\)\n- 보유 종목 테이블 \\(Phase 5에서 구현\\)\n\n## 완료 조건\n- [ ] 계좌 생성이 정상 동작함\n- [ ] 계좌 수정이 정상 동작함\n- [ ] 계좌 삭제가 정상 동작함\n- [ ] 계좌 목록이 표시됨\n- [ ] 계좌 상세 페이지가 표시됨\n- [ ] 폼 검증이 올바르게 작동함\nEOF\n\\)\")",
+      "Bash(gh issue edit:*)"
     ]
   }
 }
