@@ -9,6 +9,7 @@ import { Loading } from '@/components/common/loading';
 import { EmptyState } from '@/components/common/empty-state';
 import { ConfirmDialog } from '@/components/common/confirm-dialog';
 import { AccountForm } from '@/components/accounts/account-form';
+import { HoldingTable } from '@/components/holdings/holding-table';
 import {
   useAccount,
   useAccountStats,
@@ -175,25 +176,8 @@ export function AccountDetail({ id }: AccountDetailProps) {
         </div>
       )}
 
-      {/* Holdings Section - Placeholder for Phase 5 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>보유 종목</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {stats && stats.holdingsCount > 0 ? (
-            <p className="text-sm text-muted-foreground">
-              {stats.holdingsCount}개의 종목을 보유하고 있습니다.
-              보유 종목 관리 기능은 곧 추가됩니다.
-            </p>
-          ) : (
-            <EmptyState
-              title="보유 종목이 없습니다"
-              description="이 계좌에 보유 종목을 추가하세요."
-            />
-          )}
-        </CardContent>
-      </Card>
+      {/* Holdings Section */}
+      <HoldingTable accountId={id} />
 
       {/* Edit Dialog */}
       <AccountForm
