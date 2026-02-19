@@ -62,3 +62,10 @@ export interface PortfolioStats extends AccountStats {
   accountsCount: number;
   stocksCount: number;
 }
+
+export interface DashboardStats extends PortfolioStats {
+  topPerformers: HoldingWithDetails[];
+  worstPerformers: HoldingWithDetails[];
+  lastPriceUpdateAt: number | null;
+  holdingsWithDetails: HoldingWithDetails[];
+}

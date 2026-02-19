@@ -1,26 +1,24 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useQueryClient } from '@tanstack/react-query';
 import { Loading } from '@/components/common/loading';
 import { EmptyState } from '@/components/common/empty-state';
-import { PortfolioPieChart } from '@/components/charts/portfolio-pie-chart';
-import { TagBreakdownChart } from '@/components/charts/tag-breakdown-chart';
-import { TopHoldingsBarChart } from '@/components/charts/top-holdings-bar-chart';
+import { StatsCards } from '@/components/dashboard/stats-cards';
+import { PortfolioOverview } from '@/components/dashboard/portfolio-overview';
+import { TopHoldings } from '@/components/dashboard/top-holdings';
+import { RecentUpdates } from '@/components/dashboard/recent-updates';
 import { useAccounts } from '@/lib/hooks/use-accounts';
 import { useHoldings } from '@/lib/hooks/use-holdings';
 import { useStocks } from '@/lib/hooks/use-stocks';
 import { useTags } from '@/lib/hooks/use-tags';
 import { usePortfolioStats, useAllStockTags } from '@/lib/hooks/use-portfolio-stats';
-import {
-  formatCurrency,
-  formatPercent,
-  getGainLossColor,
-} from '@/lib/utils/formatters';
-import { BarChart3, TrendingUp, Wallet, PiggyBank } from 'lucide-react';
+import { formatDate } from '@/lib/utils/formatters';
+import { BarChart3, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
+  const queryClient = useQueryClient();
   const { data: accounts, isLoading: accountsLoading } = useAccounts();
   const { data: holdings, isLoading: holdingsLoading } = useHoldings();
   const { data: stocks, isLoading: stocksLoading } = useStocks();
@@ -31,14 +29,19 @@ export default function Home() {
   const isLoading =
     accountsLoading || holdingsLoading || stocksLoading || tagsLoading || stockTagsLoading || statsLoading;
 
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({ queryKey: ['portfolio-stats'] });
+    queryClient.invalidateQueries({ queryKey: ['holdings'] });
+    queryClient.invalidateQueries({ queryKey: ['accounts'] });
+    queryClient.invalidateQueries({ queryKey: ['stocks'] });
+  };
+
   if (isLoading) {
     return (
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">대시보드</h1>
-          <p className="text-muted-foreground">
-            포트폴리오 현황을 한눈에 확인하세요
-          </p>
+          <p className="text-muted-foreground">포트폴리오 현황을 한눈에 확인하세요</p>
         </div>
         <Loading message="데이터를 불러오는 중..." />
       </div>
@@ -50,11 +53,20 @@ export default function Home() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">대시보드</h1>
-        <p className="text-muted-foreground">
-          포트폴리오 현황을 한눈에 확인하세요
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">대시보드</h1>
+          <p className="text-muted-foreground">포트폴리오 현황을 한눈에 확인하세요</p>
+          {stats?.lastPriceUpdateAt && (
+            <p className="text-xs text-muted-foreground mt-1">
+              마지막 업데이트: {formatDate(stats.lastPriceUpdateAt)}
+            </p>
+          )}
+        </div>
+        <Button variant="outline" size="sm" onClick={handleRefresh}>
+          <RefreshCw className="h-4 w-4 mr-1" />
+          새로고침
+        </Button>
       </div>
 
       {!hasData ? (
@@ -70,91 +82,21 @@ export default function Home() {
         />
       ) : (
         <>
-          {/* Stats Cards */}
-          {stats && (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    총 평가금액
-                  </CardTitle>
-                  <Wallet className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">
-                    {formatCurrency(stats.totalValue)}
-                  </p>
-                </CardContent>
-              </Card>
+          {stats && <StatsCards stats={stats} />}
 
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    총 매입금액
-                  </CardTitle>
-                  <PiggyBank className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">
-                    {formatCurrency(stats.totalCost)}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    총 손익
-                  </CardTitle>
-                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <p
-                    className={`text-2xl font-bold ${getGainLossColor(stats.totalGainLoss)}`}
-                  >
-                    {formatCurrency(stats.totalGainLoss)}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    총 수익률
-                  </CardTitle>
-                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <p
-                    className={`text-2xl font-bold ${getGainLossColor(stats.totalReturnRate)}`}
-                  >
-                    {formatPercent(stats.totalReturnRate)}
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {/* Charts Row: Portfolio Pie + Tag Breakdown */}
-          <div className={`grid gap-4 ${tags && tags.length > 0 ? 'lg:grid-cols-2' : ''}`}>
-            <PortfolioPieChart
-              accounts={accounts ?? []}
-              holdings={holdings ?? []}
-            />
-            {tags && stockTags && tags.length > 0 && (
-              <TagBreakdownChart
-                holdings={holdings ?? []}
-                stockTags={stockTags}
-                tags={tags}
-              />
-            )}
-          </div>
-
-          {/* Top Holdings Bar Chart */}
-          <TopHoldingsBarChart
+          <PortfolioOverview
+            accounts={accounts ?? []}
             holdings={holdings ?? []}
-            stocks={stocks ?? []}
+            tags={tags ?? []}
+            stockTags={stockTags ?? []}
+            stats={stats!}
           />
+
+          <TopHoldings holdings={holdings ?? []} stocks={stocks ?? []} />
+
+          {stats && (
+            <RecentUpdates holdingsWithDetails={stats.holdingsWithDetails} />
+          )}
         </>
       )}
     </div>
