@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { StocksPageClient } from '@/components/stocks/stocks-page-client';
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function StocksPage() {
-  return <StocksPageClient />;
+  return (
+    <Suspense>
+      <StocksPageClient />
+    </Suspense>
+  );
 }
