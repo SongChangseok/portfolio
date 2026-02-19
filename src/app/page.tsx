@@ -81,7 +81,6 @@ export default function Home() {
             holdings={holdings ?? []}
             tags={tags ?? []}
             stockTags={stockTags ?? []}
-            stats={stats!}
           />
 
           <TopHoldings holdings={holdings ?? []} stocks={stocks ?? []} />
