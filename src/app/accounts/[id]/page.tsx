@@ -1,5 +1,9 @@
 import { AccountDetail } from '@/components/accounts/account-detail';
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default async function AccountDetailPage({
   params,
 }: {

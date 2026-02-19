@@ -1,5 +1,9 @@
 import { StockDetail } from '@/components/stocks/stock-detail';
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default async function StockDetailPage({
   params,
 }: {

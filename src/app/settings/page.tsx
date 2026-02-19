@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { DataManagementCard } from '@/components/settings/data-management-card';
+
+export const metadata: Metadata = {
+  title: '설정',
+  description: '앱 설정 및 데이터를 관리합니다. 데이터 내보내기, 가져오기, 초기화.',
+};
 
 export default function SettingsPage() {
   return (
