@@ -51,7 +51,7 @@ export function PortfolioPieChart({ accounts, holdings }: PortfolioPieChartProps
             dataKey="value"
             stroke="none"
             onClick={(entry) => {
-              if (entry?.id) router.push(`/accounts/${entry.id}`);
+              if (entry?.id) router.push(`/accounts?id=${entry.id}`);
             }}
             style={{ cursor: 'pointer' }}
           >

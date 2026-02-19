@@ -1,16 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AccountList } from '@/components/accounts/account-list';
 import { AccountForm } from '@/components/accounts/account-form';
+import { AccountDetail } from '@/components/accounts/account-detail';
 import { useCreateAccount } from '@/lib/hooks/use-accounts';
 import type { AccountFormValues } from '@/lib/utils/validators';
 
 export function AccountsPageClient() {
+  const searchParams = useSearchParams();
+  const accountId = searchParams.get('id');
+
   const [formOpen, setFormOpen] = useState(false);
   const createAccount = useCreateAccount();
+
+  if (accountId) {
+    return <AccountDetail id={accountId} />;
+  }
 
   const handleCreate = (data: AccountFormValues) => {
     createAccount.mutate(data, {

@@ -13,7 +13,7 @@ interface AccountCardProps {
 
 export function AccountCard({ account, stats }: AccountCardProps) {
   return (
-    <Link href={`/accounts/${account.id}`}>
+    <Link href={`/accounts?id=${account.id}`}>
       <Card className="hover:shadow-md transition-shadow cursor-pointer group">
         <CardHeader className="flex flex-row items-center gap-3 pb-3">
           <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center shrink-0">

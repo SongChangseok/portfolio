@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { AccountsPageClient } from '@/components/accounts/accounts-page-client';
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function AccountsPage() {
-  return <AccountsPageClient />;
+  return (
+    <Suspense>
+      <AccountsPageClient />
+    </Suspense>
+  );
 }
