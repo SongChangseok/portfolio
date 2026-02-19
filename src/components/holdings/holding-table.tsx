@@ -233,25 +233,25 @@ export function HoldingTable({ accountId }: HoldingTableProps) {
                     <th className="p-3 text-left font-medium">
                       <SortButton field="name">종목명</SortButton>
                     </th>
-                    <th className="p-3 text-right font-medium">
+                    <th className="p-3 text-right font-medium hidden sm:table-cell">
                       <SortButton field="shares">수량</SortButton>
                     </th>
-                    <th className="p-3 text-right font-medium">
+                    <th className="p-3 text-right font-medium hidden md:table-cell">
                       <SortButton field="averageCost">평균매입가</SortButton>
                     </th>
                     <th className="p-3 text-right font-medium">
                       <SortButton field="currentPrice">현재가</SortButton>
                     </th>
-                    <th className="p-3 text-right font-medium">
+                    <th className="p-3 text-right font-medium hidden sm:table-cell">
                       <SortButton field="marketValue">평가금액</SortButton>
                     </th>
-                    <th className="p-3 text-right font-medium">
+                    <th className="p-3 text-right font-medium hidden md:table-cell">
                       <SortButton field="gainLoss">손익</SortButton>
                     </th>
                     <th className="p-3 text-right font-medium">
                       <SortButton field="returnRate">수익률</SortButton>
                     </th>
-                    <th className="p-3 text-right font-medium">
+                    <th className="p-3 text-right font-medium hidden sm:table-cell">
                       <SortButton field="allocation">비중</SortButton>
                     </th>
                     <th className="p-3 text-center font-medium w-12"></th>
@@ -276,12 +276,14 @@ export function HoldingTable({ accountId }: HoldingTableProps) {
                 <tfoot>
                   <tr className="border-t-2 font-semibold">
                     <td className="p-3">합계</td>
-                    <td className="p-3" colSpan={3}></td>
-                    <td className="p-3 text-right">
+                    <td className="p-3 hidden sm:table-cell"></td>
+                    <td className="p-3 hidden md:table-cell"></td>
+                    <td className="p-3"></td>
+                    <td className="p-3 text-right hidden sm:table-cell">
                       {formatCurrency(totalValue)}
                     </td>
                     <td
-                      className={`p-3 text-right ${getGainLossColor(totals.totalGainLoss)}`}
+                      className={`p-3 text-right hidden md:table-cell ${getGainLossColor(totals.totalGainLoss)}`}
                     >
                       {formatCurrency(totals.totalGainLoss)}
                     </td>
@@ -290,7 +292,7 @@ export function HoldingTable({ accountId }: HoldingTableProps) {
                     >
                       {formatPercent(totals.totalReturnRate)}
                     </td>
-                    <td className="p-3 text-right">100%</td>
+                    <td className="p-3 text-right hidden sm:table-cell">100%</td>
                     <td className="p-3"></td>
                   </tr>
                 </tfoot>

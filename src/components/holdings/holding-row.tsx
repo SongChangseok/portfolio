@@ -88,10 +88,10 @@ export function HoldingRow({
       <td className="p-3 font-medium">{stock.name}</td>
 
       {/* 수량 */}
-      <td className="p-3 text-right">{formatNumber(holding.shares)}</td>
+      <td className="p-3 text-right hidden sm:table-cell">{formatNumber(holding.shares)}</td>
 
       {/* 평균매입가 */}
-      <td className="p-3 text-right">{formatCurrency(holding.averageCost)}</td>
+      <td className="p-3 text-right hidden md:table-cell">{formatCurrency(holding.averageCost)}</td>
 
       {/* 현재가 (인라인 수정) */}
       <td className="p-3 text-right">
@@ -135,10 +135,10 @@ export function HoldingRow({
       </td>
 
       {/* 평가금액 */}
-      <td className="p-3 text-right">{formatCurrency(marketValue)}</td>
+      <td className="p-3 text-right hidden sm:table-cell">{formatCurrency(marketValue)}</td>
 
       {/* 손익 */}
-      <td className={`p-3 text-right ${getGainLossColor(gainLoss)}`}>
+      <td className={`p-3 text-right hidden md:table-cell ${getGainLossColor(gainLoss)}`}>
         {formatCurrency(gainLoss)}
       </td>
 
@@ -148,7 +148,7 @@ export function HoldingRow({
       </td>
 
       {/* 비중 */}
-      <td className="p-3 text-right">{allocation.toFixed(1)}%</td>
+      <td className="p-3 text-right hidden sm:table-cell">{allocation.toFixed(1)}%</td>
 
       {/* 삭제 */}
       <td className="p-3 text-center">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { QueryProvider } from "@/providers/query-provider";
 import { Header } from "@/components/common/header";
+import { Toaster } from "sonner";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         <QueryProvider>
           <Header />
           <main className="container mx-auto px-4 py-6">{children}</main>
+          <Toaster richColors position="top-right" />
         </QueryProvider>
       </body>
     </html>

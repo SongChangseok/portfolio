@@ -1,9 +1,21 @@
 'use client';
 
+import React, { Suspense } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PortfolioPieChart } from '@/components/charts/portfolio-pie-chart';
-import { TagBreakdownChart } from '@/components/charts/tag-breakdown-chart';
+import { ChartSkeleton } from '@/components/common/skeletons';
 import type { Account, Holding, Tag, StockTag, DashboardStats } from '@/lib/types';
+
+const PortfolioPieChart = React.lazy(() =>
+  import('@/components/charts/portfolio-pie-chart').then((m) => ({
+    default: m.PortfolioPieChart,
+  }))
+);
+
+const TagBreakdownChart = React.lazy(() =>
+  import('@/components/charts/tag-breakdown-chart').then((m) => ({
+    default: m.TagBreakdownChart,
+  }))
+);
 
 interface PortfolioOverviewProps {
   accounts: Account[];
@@ -54,9 +66,13 @@ export function PortfolioOverview({
 
       {/* 차트 */}
       <div className={`grid gap-4 ${hasTags ? 'lg:grid-cols-2' : ''}`}>
-        <PortfolioPieChart accounts={accounts} holdings={holdings} />
+        <Suspense fallback={<ChartSkeleton />}>
+          <PortfolioPieChart accounts={accounts} holdings={holdings} />
+        </Suspense>
         {hasTags && (
-          <TagBreakdownChart holdings={holdings} stockTags={stockTags} tags={tags} />
+          <Suspense fallback={<ChartSkeleton />}>
+            <TagBreakdownChart holdings={holdings} stockTags={stockTags} tags={tags} />
+          </Suspense>
         )}
       </div>
     </div>

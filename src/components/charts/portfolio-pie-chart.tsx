@@ -38,8 +38,9 @@ export function PortfolioPieChart({ accounts, holdings }: PortfolioPieChartProps
       title="계좌별 비중"
       isEmpty={data.length === 0}
       emptyMessage="보유 종목이 없습니다"
+      responsive
     >
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import {
   getAllStocks,
   getStockById,
@@ -45,6 +46,10 @@ export function useCreateStock() {
       createStock(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: STOCKS_KEY });
+      toast.success('주식이 등록되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }
@@ -63,6 +68,10 @@ export function useUpdateStock() {
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: STOCKS_KEY });
       queryClient.invalidateQueries({ queryKey: stockKey(id) });
+      toast.success('주식 정보가 수정되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }
@@ -74,6 +83,10 @@ export function useDeleteStock() {
     mutationFn: (id: string) => deleteStock(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: STOCKS_KEY });
+      toast.success('주식이 삭제되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }

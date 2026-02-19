@@ -18,6 +18,7 @@ const navItems = [
   { href: "/", label: "대시보드" },
   { href: "/accounts", label: "계좌" },
   { href: "/stocks", label: "주식" },
+  { href: "/settings", label: "설정" },
 ];
 
 export function Header() {

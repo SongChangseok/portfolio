@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import {
   getAllAccounts,
   getAccountById,
@@ -50,6 +51,10 @@ export function useCreateAccount() {
       createAccount(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ACCOUNTS_KEY });
+      toast.success('계좌가 생성되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }
@@ -68,6 +73,10 @@ export function useUpdateAccount() {
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ACCOUNTS_KEY });
       queryClient.invalidateQueries({ queryKey: accountKey(id) });
+      toast.success('계좌가 수정되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }
@@ -79,6 +88,10 @@ export function useDeleteAccount() {
     mutationFn: (id: string) => deleteAccount(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ACCOUNTS_KEY });
+      toast.success('계좌가 삭제되었습니다.');
+    },
+    onError: () => {
+      toast.error('오류가 발생했습니다. 다시 시도해주세요.');
     },
   });
 }

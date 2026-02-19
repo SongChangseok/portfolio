@@ -1,7 +1,7 @@
 'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
-import { Loading } from '@/components/common/loading';
+import { DashboardSkeleton } from '@/components/common/skeletons';
 import { EmptyState } from '@/components/common/empty-state';
 import { StatsCards } from '@/components/dashboard/stats-cards';
 import { PortfolioOverview } from '@/components/dashboard/portfolio-overview';
@@ -37,15 +37,7 @@ export default function Home() {
   };
 
   if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">대시보드</h1>
-          <p className="text-muted-foreground">포트폴리오 현황을 한눈에 확인하세요</p>
-        </div>
-        <Loading message="데이터를 불러오는 중..." />
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   const hasData = holdings && holdings.length > 0;

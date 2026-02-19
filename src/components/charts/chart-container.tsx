@@ -12,6 +12,7 @@ interface ChartContainerProps {
   emptyMessage?: string;
   className?: string;
   action?: React.ReactNode;
+  responsive?: boolean;
 }
 
 export function ChartContainer({
@@ -21,6 +22,7 @@ export function ChartContainer({
   emptyMessage = '데이터가 없습니다',
   className,
   action,
+  responsive = false,
 }: ChartContainerProps) {
   return (
     <Card className={cn(className)}>
@@ -35,6 +37,8 @@ export function ChartContainer({
             title={emptyMessage}
             className="py-8"
           />
+        ) : responsive ? (
+          <div className="h-48 sm:h-64 md:h-72">{children}</div>
         ) : (
           children
         )}

@@ -1,7 +1,14 @@
 'use client';
 
-import { TopHoldingsBarChart } from '@/components/charts/top-holdings-bar-chart';
+import React, { Suspense } from 'react';
+import { ChartSkeleton } from '@/components/common/skeletons';
 import type { Holding, Stock } from '@/lib/types';
+
+const TopHoldingsBarChart = React.lazy(() =>
+  import('@/components/charts/top-holdings-bar-chart').then((m) => ({
+    default: m.TopHoldingsBarChart,
+  }))
+);
 
 interface TopHoldingsProps {
   holdings: Holding[];
@@ -9,5 +16,9 @@ interface TopHoldingsProps {
 }
 
 export function TopHoldings({ holdings, stocks }: TopHoldingsProps) {
-  return <TopHoldingsBarChart holdings={holdings} stocks={stocks} />;
+  return (
+    <Suspense fallback={<ChartSkeleton />}>
+      <TopHoldingsBarChart holdings={holdings} stocks={stocks} />
+    </Suspense>
+  );
 }

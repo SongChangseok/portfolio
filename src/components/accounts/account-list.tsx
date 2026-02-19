@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllHoldings } from '@/lib/db/queries';
 import { calculateAccountStats } from '@/lib/utils/calculations';
 import { AccountCard } from './account-card';
-import { Loading } from '@/components/common/loading';
+import { CardGridSkeleton } from '@/components/common/skeletons';
 import { EmptyState } from '@/components/common/empty-state';
 import { Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ export function AccountList({ onAddAccount }: AccountListProps) {
   });
 
   if (accountsLoading || holdingsLoading) {
-    return <Loading message="계좌 목록을 불러오는 중..." />;
+    return <CardGridSkeleton count={3} />;
   }
 
   if (!accounts || accounts.length === 0) {
