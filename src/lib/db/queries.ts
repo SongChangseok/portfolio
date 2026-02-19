@@ -237,6 +237,11 @@ export async function removeTagFromStock(stockId: string, tagId: string): Promis
   await db.stock_tags.where('[stockId+tagId]').equals([stockId, tagId]).delete();
 }
 
+export async function getAllStockTags(): Promise<StockTag[]> {
+  const db = getDB();
+  return await db.stock_tags.toArray();
+}
+
 export async function getStocksByTag(tagId: string): Promise<Stock[]> {
   const db = getDB();
   const stockTags = await db.stock_tags.where('tagId').equals(tagId).toArray();

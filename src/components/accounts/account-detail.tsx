@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/common/empty-state';
 import { ConfirmDialog } from '@/components/common/confirm-dialog';
 import { AccountForm } from '@/components/accounts/account-form';
 import { HoldingTable } from '@/components/holdings/holding-table';
+import { AccountAllocationChart } from '@/components/charts/account-allocation-chart';
 import {
   useAccount,
   useAccountStats,
@@ -175,6 +176,9 @@ export function AccountDetail({ id }: AccountDetailProps) {
           </Card>
         </div>
       )}
+
+      {/* Allocation Chart */}
+      <AccountAllocationChart accountId={id} />
 
       {/* Holdings Section */}
       <HoldingTable accountId={id} />
